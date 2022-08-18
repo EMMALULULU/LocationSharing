@@ -56,6 +56,7 @@ export default function NewPlace() {
           url: 'http://localhost:4000/api/places',
           method: 'POST',
           data: formData,
+          headers: { Authorization: 'Bearer ' + auth.token },
         });
 
         // redirect to my places page

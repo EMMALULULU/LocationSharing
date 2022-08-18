@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import Card from '../../shared/components/UIElements/Card';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import { AuthContext } from '../../shared/context/auth-context';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
@@ -14,6 +15,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import './PlaceForm.css';
 
 export default function UpdatePlace() {
+  const auth = useContext(AuthContext);
   let navigate = useNavigate();
   const { placeId } = useParams();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -53,7 +55,7 @@ export default function UpdatePlace() {
       } catch (err) {}
     }
     fetchPlace();
-  }, [sendRequest, placeId, setFormData]);
+  }, [sendRequest, placeId, setFormData, identifiedPlace]);
 
   const placeUpdateSubmitHandler = async (e) => {
     e.preventDefault();
@@ -65,6 +67,7 @@ export default function UpdatePlace() {
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
         },
+        headers: { Authorization: 'Bearer ' + auth.token },
       });
     } catch (err) {}
     navigate(`/${response.data.place.creator}/places`, { replace: true });

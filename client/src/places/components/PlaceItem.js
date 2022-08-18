@@ -33,9 +33,10 @@ export default function PlaceItem(props) {
   const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
     try {
-      const response = await sendRequest({
+      await sendRequest({
         method: 'DELETE',
         url: `http://localhost:4000/api/places/${props.id}`,
+        headers: { Authorization: 'Bearer ' + auth.token },
       });
     } catch {}
     props.onDelete(props.id);

@@ -109,8 +109,10 @@ async function updatePlaceById(request, response, next) {
     console.log(errors);
     throw new HttpError('invalid inputs', 422);
   }
+
   const placeId = request.params.pid;
   const { title, description } = request.body;
+
   let place = null;
   try {
     place = await Place.findById(placeId);
@@ -121,6 +123,9 @@ async function updatePlaceById(request, response, next) {
     );
   }
 
+  if (place.creator.toString() !== request.userData.userId) {
+    return next(new HttpError('You are not allowed to edit this place'), 401);
+  }
   place.title = title;
   place.description = description;
   try {
@@ -147,6 +152,9 @@ async function deletePlaceById(request, response, next) {
 
   if (!place) {
     return next(new HttpError('could not find the place for this ID', 500));
+  }
+  if (place.creator.id !== request.userData.userId) {
+    return next(new HttpError('You are not allowed to delete this place', 401));
   }
   const imagePath = place.image;
   try {

@@ -7,6 +7,9 @@ module.exports = (req, res, next) => {
     because not all kinds of request has payload and 
     there is no way to set the token in param 
     */
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
   let token;
   try {
     token = req.headers.authorization.split(' ')[1]; //authorization:'Bearer TOKEN'

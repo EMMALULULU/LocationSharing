@@ -83,14 +83,14 @@ async function logIn(request, response, next) {
   }
 
   if (!existingUser) {
-    return next(new HttpError('Log in failed,email is not correct', 401));
+    return next(new HttpError('Log in failed,email is not correct', 403));
   }
 
   // check the password, extract the hash and compare
 
   let isValidPassword = false;
   try {
-    isValidPassword = await bcrypt.compare(password, existingUser, password);
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
   } catch (error) {
     return next(
       new HttpError('Could not log you in, check your credentials', 500)
@@ -98,7 +98,7 @@ async function logIn(request, response, next) {
   }
 
   if (!isValidPassword) {
-    return next(new HttpError('Invalid credentials', 401));
+    return next(new HttpError('Invalid credentials', 403));
   }
 
   // pass the password checking
