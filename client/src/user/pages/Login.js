@@ -74,7 +74,7 @@ export default function Login() {
     if (isLoginMode) {
       try {
         const response = await sendRequest({
-          url: 'http://localhost:4000/api/users/login',
+          url: process.env.REACT_APP_BACKEND_URL + '/users/login',
           method: 'POST',
           data: {
             email: formState.inputs.email.value,
@@ -94,7 +94,7 @@ export default function Login() {
         formData.append('password', formState.inputs.password.value);
         formData.append('image', formState.inputs.image.value);
         const response = await sendRequest({
-          url: 'http://localhost:4000/api/users/signup',
+          url: process.env.REACT_APP_BACKEND_URL + '/users/signup',
           method: 'POST',
           data: formData,
         });

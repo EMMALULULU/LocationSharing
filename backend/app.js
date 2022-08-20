@@ -49,13 +49,13 @@ app.use((error, request, response, next) => {
 //connect to db
 mongoose
   .connect(
-    'mongodb+srv://zijun:EFUEZaD0pfr7ovkX@cluster0.yonc71b.mongodb.net/?retryWrites=true&w=majority'
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.yonc71b.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
     // if the connection to the database is successful
     // then start the backend server
     console.log('database connected');
-    app.listen(4000);
+    app.listen(parseInt(process.env.PORT) || 4000);
   })
   .catch((err) => {
     console.log(err);

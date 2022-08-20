@@ -15,7 +15,7 @@ export default function UserPlaces() {
     async function fetchUserPlaces() {
       try {
         const response = await sendRequest({
-          url: `http://localhost:4000/api/places/user/${userId}`,
+          url: `${process.env.REACT_APP_BACKEND_URL}/places/user/${userId}`,
           method: 'GET',
         });
 

@@ -38,7 +38,7 @@ export default function UpdatePlace() {
     async function fetchPlace() {
       try {
         const response = await sendRequest({
-          url: `http://localhost:4000/api/places/${placeId}`,
+          url: `${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`,
           method: 'GET',
         });
         setIdentifiedPlace(response.data.place);
@@ -55,13 +55,13 @@ export default function UpdatePlace() {
       } catch (err) {}
     }
     fetchPlace();
-  }, [sendRequest, placeId, setFormData, identifiedPlace]);
+  }, [sendRequest, placeId, setFormData]);
 
   const placeUpdateSubmitHandler = async (e) => {
     e.preventDefault();
     try {
       var response = await sendRequest({
-        url: `http://localhost:4000/api/places/${placeId}`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`,
         method: 'PATCH',
         data: {
           title: formState.inputs.title.value,

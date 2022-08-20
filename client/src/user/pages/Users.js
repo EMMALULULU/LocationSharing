@@ -13,7 +13,7 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest({
-          url: 'http://localhost:4000/api/users',
+          url: process.env.REACT_APP_BACKEND_URL + '/users',
           method: 'GET',
         });
 

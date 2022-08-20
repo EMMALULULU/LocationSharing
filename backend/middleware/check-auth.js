@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
       throw new Error('Authentication failed');
     }
     // verify token
-    const decodedToken = jwt.verify(token, 'supersecret_dont_share'); // return the payload encoded into the token
+    const decodedToken = jwt.verify(token, process.env.JWT_KEY); // return the payload encoded into the token
     // append the user id into request and pass it to the next middleware
     req.userData = { userId: decodedToken.userId };
     next();

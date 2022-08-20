@@ -62,7 +62,7 @@ async function signUp(request, response, next) {
   try {
     token = jwt.sign(
       { userId: user.Id, email: user.email },
-      'supersecret_dont_share',
+      process.env.JWT_KEY,
       { expiresIn: '1h' }
     );
   } catch (err) {
@@ -107,7 +107,7 @@ async function logIn(request, response, next) {
   try {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      'supersecret_dont_share',
+      process.env.JWT_KEY,
       { expiresIn: '1h' }
     );
   } catch (err) {

@@ -1,0 +1,9 @@
+{
+    "env": {
+     "DB_NAME":"locationSharing",
+     "DB_PASSWORD":"ycS6irmDQt2zHXD1",
+     "DB_USER":"admin_2022",
+     "GOOGLE_API_KEY":"AIzaSyCH7solXRnnONOA0QMK12SJ1zD5u1Rigbo",
+     "JWT_KEY":"supersecret_dont_share"
+    }
+  }
